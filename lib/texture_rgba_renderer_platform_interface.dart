@@ -11,8 +11,7 @@ abstract class TextureRgbaRendererPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static TextureRgbaRendererPlatform _instance =
-      MethodChannelTextureRgbaRenderer();
+  static TextureRgbaRendererPlatform _instance = MethodChannelTextureRgbaRenderer();
 
   /// The default instance of [TextureRgbaRendererPlatform] to use.
   ///
@@ -39,8 +38,7 @@ abstract class TextureRgbaRendererPlatform extends PlatformInterface {
     throw UnimplementedError('closeTexture() has not been implemented.');
   }
 
-  Future<bool> onRgba(
-      int key, Uint8List data, int height, int width, int strideAlign) {
+  Future<bool> onRgba(int key, Uint8List data, int height, int width, int strideAlign) {
     throw UnimplementedError('onRgba() has not been implemented.');
   }
 

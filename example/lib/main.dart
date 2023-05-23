@@ -65,14 +65,12 @@ class _MyAppState extends State<MyApp> {
     debugPrint('REMOVE ME =============================== rowBytes $rowBytes');
     _timer?.cancel();
     // 60 fps
-    _timer =
-        Timer.periodic(const Duration(milliseconds: 1000 ~/ 60), (timer) async {
+    _timer = Timer.periodic(const Duration(milliseconds: 1000 ~/ 60), (timer) async {
       if (methodId == 0) {
         // Method.1: with MethodChannel
         data = mockPicture(width, height, rowBytes, picDataLength);
         final t1 = DateTime.now().microsecondsSinceEpoch;
-        final res = await _textureRgbaRendererPlugin.onRgba(
-            key, data!, height, width, strideAlign);
+        final res = await _textureRgbaRendererPlugin.onRgba(key, data!, height, width, strideAlign);
         final t2 = DateTime.now().microsecondsSinceEpoch;
         setState(() {
           time = t2 - t1;
@@ -84,8 +82,8 @@ class _MyAppState extends State<MyApp> {
         final dataPtr = mockPicturePtr(width, height, rowBytes, picDataLength);
         // Method.2: with native ffi
         final t1 = DateTime.now().microsecondsSinceEpoch;
-        Native.instance.onRgba(Pointer.fromAddress(texturePtr).cast<Void>(),
-            dataPtr, picDataLength, width, height, strideAlign);
+        Native.instance
+            .onRgba(Pointer.fromAddress(texturePtr).cast<Void>(), dataPtr, picDataLength, width, height, strideAlign);
         final t2 = DateTime.now().microsecondsSinceEpoch;
         setState(() {
           time = t2 - t1;
@@ -137,8 +135,7 @@ class _MyAppState extends State<MyApp> {
     return Uint8List.fromList(pic);
   }
 
-  Pointer<Uint8> mockPicturePtr(
-      int width, int height, int rowBytes, int length) {
+  Pointer<Uint8> mockPicturePtr(int width, int height, int rowBytes, int length) {
     final pic = List.generate(length, (index) {
       final r = index / rowBytes;
       final c = (index % rowBytes) / 4;
@@ -182,8 +179,7 @@ class _MyAppState extends State<MyApp> {
                           child: Texture(textureId: textureId)),
                     ),
             ),
-            Text(
-                "texture id: $textureId, texture memory address: ${texturePtr.toRadixString(16)}"),
+            Text("texture id: $textureId, texture memory address: ${texturePtr.toRadixString(16)}"),
             TextButton.icon(
               label: const Text("play with texture (method channel API)"),
               icon: const Icon(Icons.play_arrow),
@@ -194,8 +190,7 @@ class _MyAppState extends State<MyApp> {
               icon: const Icon(Icons.play_arrow),
               onPressed: () => start(1),
             ),
-            Text(
-                "Current mode: ${method == 0 ? 'Method Channel API' : 'Native API'}"),
+            Text("Current mode: ${method == 0 ? 'Method Channel API' : 'Native API'}"),
             time != 0 ? Text("FPS: ${1000000 ~/ time} fps") : const Offstage()
           ],
         ),

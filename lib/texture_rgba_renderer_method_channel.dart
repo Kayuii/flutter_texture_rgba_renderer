@@ -17,28 +17,22 @@ class MethodChannelTextureRgbaRenderer extends TextureRgbaRendererPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
   @override
   Future<int> createTexture(int key) async {
-    return await methodChannel
-            .invokeMethod<int>('createTexture', {"key": key}) ??
-        -1;
+    return await methodChannel.invokeMethod<int>('createTexture', {"key": key}) ?? -1;
   }
 
   @override
   Future<bool> closeTexture(int key) async {
-    return await methodChannel
-            .invokeMethod<bool>('closeTexture', {"key": key}) ??
-        false;
+    return await methodChannel.invokeMethod<bool>('closeTexture', {"key": key}) ?? false;
   }
 
   @override
-  Future<bool> onRgba(
-      int key, Uint8List data, int height, int width, int strideAlign) async {
+  Future<bool> onRgba(int key, Uint8List data, int height, int width, int strideAlign) async {
     return await methodChannel.invokeMethod<bool>('onRgba', {
           "data": data,
           "height": height,
@@ -51,9 +45,7 @@ class MethodChannelTextureRgbaRenderer extends TextureRgbaRendererPlatform {
 
   @override
   Future<int> getTexturePtr(int key) async {
-    final ptr =
-        await methodChannel.invokeMethod('getTexturePtr', {"key": key}) ??
-            false;
+    final ptr = await methodChannel.invokeMethod('getTexturePtr', {"key": key}) ?? false;
     return ptr;
   }
 }
